@@ -4,6 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["victorien <victorienmichel3@gmail.com>"]
 readme = "README.md"
+packages = [
+    { include = "ml_laptime"},
+    { include = "ml_laptime/**/*.py"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
