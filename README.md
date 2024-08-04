@@ -1,36 +1,24 @@
-# ML-Laptime
+# F1 Lap Time Forecasting
 
-## Description
+## Introduction
 
-This repository contains a machine learning model that predicts lap times for Formula One races using XGBoost. The model leverages historical race data, track information, weather conditions, and telemetry to provide accurate lap time estimations.
-
-## Features
-
-- Utilizes XGBoost, a powerful gradient boosting algorithm
-- Incorporates multiple data sources for comprehensive predictions:
-  - Previous race performance
-  - Track-specific data
-  - Real-time weather information
-  - Car telemetry data
-- Handles complex interactions between variables
-- Provides feature importance analysis
+This repository contains a machine learning project that aims to predict lap times in Formula 1 using historical data and advanced data science techniques. The project leverages the power of XGBoost to build a robust and accurate model that can forecast lap times based on a variety of factors, including track conditions, weather, and driver performance. The goal of this project is to provide a data-driven approach to understanding F1 performance and to explore the potential of machine learning in motorsport.
 
 ## Data Sources
 
-The model uses the following data sources:
+The [FastF1](https://github.com/theOehrly/Fast-F1) package is a wrapper for an API giving access to the data needed to train the model: 
+* historical laps data from previous races
+* track-specific data
+* weather information
+* car telemetry
 
-1. Historical race results and lap times
-2. Track characteristics (length, number of corners, altitude, etc.)
-3. Weather data (temperature, humidity, wind speed, precipitation)
-4. Car telemetry (speed, throttle, brake, gear changes, etc.)
+## Training
 
-## Requirements
+Each circuit, car and driver have specific characteristics influencing lap times that are beyond the scope of this project. Therefore this XGBoost model is track- and team-specific, and is trained on data from Max Verstappen's laps at the Spanish Grand Prix from seasons 2019 and 2020.
 
-- Python 3.10+
-- XGBoost
-- Pandas
-- NumPy
-- Matplotlib
+The dataset is preprocessed to handle missing values and outliers. Missing values are imputed with the mean. Laps considered as outliers are laps with an incident (safety car, yellow/red flag), pit stops and the first lap of the race. All these laps are removed from the dataset.
+
+The model was then trained using a combination of hyperparameter tuning and cross-validation to optimize its performance. The training process involved splitting the dataset into training and validation sets, and using the training set to train the model while evaluating its performance on the validation set. The model was trained using a variety of hyperparameters, including learning rate, max depth, and number of estimators, to achieve the best possible performance.The XGBoost model was trained on a dataset of historical F1 lap times, which was collected from various sources, including the official F1 website and other online databases. The dataset was preprocessed to handle missing values, outliers, and feature scaling. The model was then trained using a combination of hyperparameter tuning and cross-validation to optimize its performance. The training process involved splitting the dataset into training and validation sets, and using the training set to train the model while evaluating its performance on the validation set. The model was trained using a variety of hyperparameters, including learning rate, max depth, and number of estimators, to achieve the best possible performance.
 
 ## Contributing
 
@@ -42,8 +30,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## Acknowledgments
 
-Special thanks to theOehrly for providing access to historical race data and telemetry information with their FastF1 API.
-
----
-
-This repository is perfect for F1 enthusiasts, data scientists, and machine learning practitioners interested in applying advanced predictive modeling techniques to motorsport analytics.
+Special thanks to [theOehrly](https://github.com/theOehrly) for providing access to historical race data and telemetry information with their FastF1 API.
