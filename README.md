@@ -4,7 +4,7 @@
 
 This repository contains a machine learning project that aims to predict lap times in Formula 1 using historical data and advanced data science techniques. The project leverages the power of XGBoost to build a robust and accurate model that can forecast lap times based on a variety of factors, including track conditions, weather, and driver performance. The goal of this project is to provide a data-driven approach to understanding F1 performance and to explore the potential of machine learning in motorsport.
 
-## Data Sources
+## Data Source
 
 The [FastF1](https://github.com/theOehrly/Fast-F1) package is a wrapper for an API giving access to the data needed to train the model: 
 * historical laps data from previous races
@@ -12,13 +12,29 @@ The [FastF1](https://github.com/theOehrly/Fast-F1) package is a wrapper for an A
 * weather information
 * car telemetry
 
-## Training
+## Feature Engineering
 
-Each circuit, car and driver have specific characteristics influencing lap times that are beyond the scope of this project. Therefore this XGBoost model is track- and team-specific, and is trained on data from Max Verstappen's laps at the Spanish Grand Prix from seasons 2019 and 2020.
+### Track and driver
+
+Each circuit, car and driver have specific characteristics influencing lap times that are beyond the scope of this project. Therefore this XGBoost model is track- and team-specific, and the dataset is taken from Max Verstappen's laps at the Spanish Grand Prix from seasons 2019 and 2020.
+
+### Feature selection
+
+Features are selected based on their correlation with lap times in training data while minimizing correlation between themselves. Telemetry data is processed to get average values for each lap, such as throttle position and braking time.
+
+### Imputation and outliers
 
 The dataset is preprocessed to handle missing values and outliers. Missing values are imputed with the mean. Laps considered as outliers are laps with an incident (safety car, yellow/red flag), pit stops and the first lap of the race. All these laps are removed from the dataset.
 
-The model was then trained using a combination of hyperparameter tuning and cross-validation to optimize its performance. The training process involved splitting the dataset into training and validation sets, and using the training set to train the model while evaluating its performance on the validation set. The model was trained using a variety of hyperparameters, including learning rate, max depth, and number of estimators, to achieve the best possible performance.The XGBoost model was trained on a dataset of historical F1 lap times, which was collected from various sources, including the official F1 website and other online databases. The dataset was preprocessed to handle missing values, outliers, and feature scaling. The model was then trained using a combination of hyperparameter tuning and cross-validation to optimize its performance. The training process involved splitting the dataset into training and validation sets, and using the training set to train the model while evaluating its performance on the validation set. The model was trained using a variety of hyperparameters, including learning rate, max depth, and number of estimators, to achieve the best possible performance.
+## Training
+
+### Hyperparameter tuning 
+
+A grid search is used with a series of XGBoost parameters, including tree depth, number of estimators and learning rate.
+
+### Cross-validation
+
+Different subsets of the most recent laps in training data are taken to create validation sets. The grid search optimization finds the set of parameters that minimize the loss function over all validation sets.
 
 ## Contributing
 
