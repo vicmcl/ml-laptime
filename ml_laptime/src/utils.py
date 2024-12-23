@@ -22,14 +22,14 @@ def laps_with_incident(laps, incident_times, allclear_times):
     for start_incident, end_incident in zip(incident_times, allclear_times):
         i = 0
         # Find the first impacted lap
-        while laps.iloc[i]['Time'] < start_incident:
+        while pd.Timedelta(laps['Time'].iloc[i]) < start_incident:
             i += 1
-        laps_to_remove.append(laps.iloc[i]['Time'])
+        laps_to_remove.append(laps['Time'].iloc[i])
 
         # If the incident is not over by the end of the lap, remove the next lap
         # and repeat until the incident is over
-        while laps.iloc[i]['Time'] < end_incident:
-            laps_to_remove.append(laps.iloc[i + 1]['Time'])
+        while pd.Timedelta(laps['Time'].iloc[i]) < end_incident:
+            laps_to_remove.append(laps['Time'].iloc[i + 1])
             i += 1
     return laps_to_remove
 
